@@ -24,22 +24,23 @@ export const listCompanyVehicules = (req, res) => {
 };
 
 export const updateCompanyVehicule = (req, res) => {
-  extractingForUpdate(req);
+  const updatedVehicule = extractingForUpdate(req);
 
-  res.status(200).json({ message: "Vehicle updated", vehicle: updatedVehicle });
+  res
+    .status(200)
+    .json({ message: "Vehicle updated", vehicle: extractingForUpdate(req) }); //deve ter como melhorar isto...
 };
 
 export const deleteCompanyVehicule = async (req, res) => {
-    let { plate } = req.params;
+  let { plate } = req.params;
 
-    let { company } = req;
+  let { company } = req;
 
-    company.vehicles = company.vehicles.filter(
-      (vehicle) => vehicle.plate !== plate
-    );
+  company.vehicles = company.vehicles.filter(
+    (vehicle) => vehicle.plate !== plate
+  );
 
-    res
-      .status(200)
-      .json({ messagem: "Vehicle deleted", vehicles: company.vehicles });
-  }
-);
+  res
+    .status(200)
+    .json({ messagem: "Vehicle deleted", vehicles: company.vehicles });
+};

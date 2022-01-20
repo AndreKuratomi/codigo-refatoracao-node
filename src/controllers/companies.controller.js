@@ -1,5 +1,7 @@
 import app from "../app";
-import { companies } from "../config/config";
+import { companies, config } from "../config/config";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 import {
   checkingForLogin,
@@ -8,22 +10,33 @@ import {
   hashing,
 } from "../services/companies.service";
 
-export const registerCompany = (req, res) => {
-  hashing(req);
+export const registerCompany = async (req, res) => {
+  const company = await hashing(req);
 
   companies.push(company);
 
   res.status(201).json({ message: "Company successfully created", company });
 };
 
-export const loginCompany = (req, res) => {
-  checkingForLogin(req);
+export const loginCompany = async (req, res) => {
+  // services não funcina aqui
+  const { cnpj, password } = req.body;
 
   let company = companies.find((company) => company.cnpj === cnpj);
 
   if (!company) {
     return res.status(401).json({ message: "Company not found" });
   }
+
+  const match = await bcrypt.compare(password, company.password);
+
+  if (!match) {
+    return res.status(401).json({ message: "User and password missmatch." });
+  }
+
+  let token = jwt.sign({ cnpj: cnpj }, config.secret, {
+    expiresIn: config.expiresIn,
+  });
 
   res.status(200).json({ token, company });
 };
@@ -33,7 +46,9 @@ export const listCompanies = (req, res) => {
 };
 
 export const updateCompany = (req, res) => {
-  extractingForUpdate(req);
+  // services não funcina aqui
+  let { company } = req;
+  let updatedCompany = { ...company, ...req.body };
 
   let index = companies.indexOf(company);
 
@@ -43,7 +58,7 @@ export const updateCompany = (req, res) => {
 };
 
 export const deleteCompany = (req, res) => {
-  extractingForDelete(req);
+  let { cnpj } = req.params;
 
   companies = companies.filter((company) => company.cnpj !== cnpj);
 

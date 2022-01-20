@@ -1,13 +1,13 @@
 import Router from "express";
 
-import { vehicleSchema } from "./models/schemas.model";
+import { vehicleSchema } from "../models/schemas.model";
 import {
   verifyCompanyExistence,
   verifyVehicleExistence,
   verifyDuplicateVehiclePlate,
   authenticateCompany,
   validate,
-} from "./middlewares/middlewares.middlewares";
+} from "../middlewares/middlewares.middlewares";
 import {
   registerCompanyVehicule,
   listCompanyVehicules,
@@ -19,7 +19,7 @@ const route = Router();
 
 export const vehiculeRoutes = (app) => {
   route.post(
-    "",
+    "/:cnpj/vehicles",
     authenticateCompany,
     verifyCompanyExistence,
     verifyDuplicateVehiclePlate,
@@ -27,25 +27,25 @@ export const vehiculeRoutes = (app) => {
     registerCompanyVehicule
   );
   route.get(
-    "",
+    "/:cnpj/vehicles",
     authenticateCompany,
     verifyCompanyExistence,
     listCompanyVehicules
   );
   route.put(
-    "/:plate",
+    "/:cnpj/vehicles/:plate",
     authenticateCompany,
     verifyCompanyExistence,
     verifyVehicleExistence,
     updateCompanyVehicule
   );
   route.delete(
-    "/:plate",
+    "/:cnpj/vehicles/:plate",
     authenticateCompany,
     verifyCompanyExistence,
     verifyVehicleExistence,
     deleteCompanyVehicule
   );
 
-  app.use("/companies/:cnpj/vehicles", route);
+  app.use("/companies", route);
 };

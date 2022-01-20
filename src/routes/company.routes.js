@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import { companySchema } from "./models/schemas.model";
+import { companySchema } from "../models/schemas.model";
 import {
   verifyCompanyExistence,
   verifyDuplicateCnpj,
   authenticateCompany,
   validate,
-} from "./middlewares/middlewares.middlewares";
+} from "../middlewares/middlewares.middlewares";
 import {
   registerCompany,
   loginCompany,
