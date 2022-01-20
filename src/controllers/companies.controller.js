@@ -1,5 +1,5 @@
 import app from "../app";
-import { companies, config } from "./services/services.service";
+import { companies } from "../config/config";
 import { companySchema } from "./models/schemas.model";
 import {
   verifyCompanyExistence,

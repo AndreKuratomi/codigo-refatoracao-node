@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { companies, config } from "../services/companies.service";
+import { companies, config } from "../config";
 
 export const verifyDuplicateCnpj = (req, res, next) => {
   let { cnpj } = req.body;

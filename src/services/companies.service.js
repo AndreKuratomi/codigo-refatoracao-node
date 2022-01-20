@@ -1,13 +1,8 @@
-export let companies = [];
-
-export const config = {
-  secret: "the_greatest_secret_key",
-  expiresIn: "604800",
-};
-
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+
+import { config } from "../config/config";
 
 export const hashing = (req) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
