@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+import { companies, config } from "./services/services.service";
 import { companySchema, vehicleSchema } from "./models/schemas.model";
 import {
   verifyCompanyExistence,
@@ -14,15 +15,9 @@ import {
 } from "./middlewares/middlewares.middlewares";
 
 const port = 3000;
-const config = {
-  secret: "the_greatest_secret_key",
-  expiresIn: "604800",
-};
 
 let app = express();
 app.use(express.json());
-
-let companies = [];
 
 app.post(
   "/companies/register",
