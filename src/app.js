@@ -1,8 +1,9 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-import * as yup from "yup";
 import bcrypt from "bcryptjs";
+
+import { companySchema, vehicleSchema } from "./models/schemas.model";
 
 const port = 3000;
 const config = {
@@ -88,52 +89,6 @@ const authenticateCompany = (req, res, next) => {
   });
 };
 
-const companySchema = yup.object().shape({
-  name: yup
-    .string("Formato de nome invalido")
-    .required("Campo de name obrigátorio"),
-  cnpj: yup
-    .string("Formato de cnpj invalido")
-    .matches(/^[0-9]{14}$/)
-    .required("Campo de cnpj obrigátorio"),
-  password: yup
-    .string("Formato de senha invalido")
-    .required("Campo de senha obrigátorio"),
-  cep: yup
-    .string("Formato de cep invalido")
-    .required("Campo de cep obrigátorio"),
-  address: yup
-    .string("Formato de endereço invalido")
-    .required("Campo de endereço obrigátorio"),
-  number: yup
-    .number("Formato de número invalido")
-    .required("Campo de número obrigátorio")
-    .positive("Formato de número invalido")
-    .integer("Formato de número invalido"),
-  state: yup
-    .string("Formato de estado invalido")
-    .matches(/^[A-Z]{2}$/)
-    .required("Campo de estado obrigátorio"),
-  city: yup
-    .string("Formato de cidade invalido")
-    .required("Campo de cidade obrigátorio"),
-});
-
-const vehicleSchema = yup.object().shape({
-  model: yup
-    .string("Formato de modelo invalido")
-    .required("Campo de modelo obrigátorio"),
-  brand: yup
-    .string("Formato de marca invalida")
-    .required("Campo de marca obrigátorio"),
-  year: yup
-    .number("Formato de ano invalido")
-    .required("Campo de ano obrigátorio"),
-  plate: yup
-    .string("Formato de placa invalido")
-    .required("Campo de placa obrigátorio"),
-});
-
 const validate = (schema) => async (req, res, next) => {
   const resource = req.body;
   try {
@@ -151,7 +106,7 @@ app.post(
   verifyDuplicateCnpj,
   async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    
+
     let company = {
       ...req.body,
       id: uuidv4(),
