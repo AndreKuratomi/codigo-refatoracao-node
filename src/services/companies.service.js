@@ -22,7 +22,7 @@ export const hashing = (req) => {
   return company;
 };
 
-export const checkingForLogin = (req, companies) => {
+export const checkingForLogin = (req) => {
   const { cnpj, password } = req.body;
 
   const match = await bcrypt.compare(password, company.password);
@@ -43,9 +43,4 @@ export const extractingForUpdate = (req) => {
   let updatedCompany = { ...company, ...req.body };
 
   return updatedCompany;
-};
-
-export const extractingForDelete = (req) => {
-  let { cnpj } = req.params;
-  return cnpj;
 };

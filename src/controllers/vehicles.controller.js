@@ -9,6 +9,7 @@ import {
   authenticateCompany,
   validate,
 } from "./middlewares/middlewares.middlewares";
+import { extractingForUpdate } from "../services/companies.service";
 
 app.post(
   "/companies/:cnpj/vehicles",
@@ -49,13 +50,7 @@ app.put(
   verifyCompanyExistence,
   verifyVehicleExistence,
   (req, res) => {
-    let { vehicle, company } = req;
-
-    let updatedVehicle = { ...vehicle, ...req.body };
-
-    let index = company.vehicles.indexOf(vehicle);
-
-    company.vehicles[index] = updatedVehicle;
+    extractingForUpdate(req);
 
     res
       .status(200)
