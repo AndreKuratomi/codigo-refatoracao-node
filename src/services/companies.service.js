@@ -1,10 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import { config } from "../config/config";
 
-export const hashing = (req) => {
+export const hashing = async (req) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   let company = {
@@ -17,7 +16,7 @@ export const hashing = (req) => {
   return company;
 };
 
-export const checkingForLogin = (req) => {
+export const checkingForLogin = async (req) => {
   const { cnpj, password } = req.body;
 
   const match = await bcrypt.compare(password, company.password);
