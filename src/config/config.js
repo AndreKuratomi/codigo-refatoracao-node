@@ -1,6 +1,10 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export let companies = [];
 
 export const config = {
-  secret: "the_greatest_secret_key",
-  expiresIn: "604800",
+  secret: process.env.JWT_SECRET,
+  expiresIn: process.env.JWT_EXPIRES_IN,
 };
