@@ -12,6 +12,7 @@ import {
 
 export const registerCompany = async (req, res) => {
   const company = await hashing(req);
+  console.log(company.name);
 
   companies.push(company);
 
