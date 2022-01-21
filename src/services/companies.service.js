@@ -16,7 +16,7 @@ export const hashing = async (req) => {
   return company;
 };
 
-export const checkingForLogin = async (req) => {
+export const checkingForLogin = async (req, res) => {
   const { cnpj, password } = req.body;
 
   const match = await bcrypt.compare(password, company.password);
