@@ -89,7 +89,7 @@ yarn dev
 
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
-<h3>Rotas</h3>
+<h3>Rotas Companies</h3>
 
 <h4>Cadastro</h4>
 
@@ -230,9 +230,11 @@ Status: 200 OK
 ]
 ```
 
+<h6>AVISO: As próximas duas rotas e todas as dos veículos necessitam serem autenticadas inserindo-se o mesmo token gerado na rota "/companies/login" no Bearer token da parte Authorization.</h6>
+
 <h4>Atualização de dados:</h4>
 
-Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/cnpj**</b> (ou localhost:3000/companies/cnpj**)
+Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj**</b> (ou localhost:3000/companies/:cnpj**)
 
 \*\*preencher com o cnpj da empresa anteriormente cadastrada.
 
@@ -272,7 +274,7 @@ Status: 200 OK
 
 <h4>Deleção</h4>
 
-Deleção de empresa cadastrada (Método DELETE): <b>/companies/cnpj**</b> (ou localhost:3000/companies/cnpj**)
+Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj**</b> (ou localhost:3000/companies/:cnpj**)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -293,6 +295,143 @@ Status: 200 OK
 }
 ```
 
+<h3>Rotas Vehicles</h3>
+
+<h4>Cadastro</h4>
+
+Cadastro de veículos no CNPJ da empresa (Método POST): <b>/companies/:cnpj**/vehicles</b> (ou localhost:3000/companies/:cnpj**/vehicles)
+
+Exemplo a ser colocado no body da requisição:
+
+```
+{
+	"model": "Fusca",
+	"brand": "Volkswagen",
+	"year": 2016,
+	"plate": "DNA-0001"
+}
+```
+
+E a resposta esperada:
+
+```
+Status: 201 CREATED
+```
+
+```
+{
+  "message": "Vehicle Fusca from year 2016 was acquired to the Empresa SA's fleet",
+  "vehicle": {
+    "model": "Fusca",
+    "brand": "Volkswagen",
+    "year": 2016,
+    "plate": "DNA-0001",
+    "id": "4105b594-ee7c-4a80-93b5-4ccf61634349",
+    "acquisition_date": "2022-01-24T17:36:05.828Z"
+  }
+}
+```
+
+<h4>Listagem</h4>
+
+Listagem de veículos no CNPJ da empresa (Método GET): <b>/companies/:cnpj**/vehicles</b> (ou localhost:3000/companies/:cnpj**/vehicles)
+
+Exemplo a ser colocado no body da requisição:
+
+```
+(Requisição feita sem body)
+```
+
+E a resposta esperada:
+
+```
+Status: 200 OK
+```
+
+```
+[
+  {
+    "model": "Fusca",
+    "brand": "Volkswagen",
+    "year": 2016,
+    "plate": "DNA-0001",
+    "id": "4105b594-ee7c-4a80-93b5-4ccf61634349",
+    "acquisition_date": "2022-01-24T17:36:05.828Z"
+  }
+]
+```
+
+<h4>Atualização de dados:</h4>
+
+Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj**/vehicles/:plate**</b> (ou localhost:3000/companies/:cnpj**/vehicles/:plate**)
+
+\*\*preencher com a placa do veículo anteriormente cadastrado.
+
+Exemplo a ser colocado no body da requisição:
+
+```
+{
+	"year": 2017
+}
+```
+
+E a resposta esperada:
+
+```
+Status: 200 OK
+```
+
+```
+{
+  "message": "Vehicle updated",
+  "vehicle": {
+      "name": "Empresa SA",
+      "cnpj": "11111111111111",
+      "password": "$2a$10$.krSnRWuOtMmXx4k/lz2LeWFem4fYA44YZqVm1fM2BMU/DguAt2kC",
+      "cep": "11111111",
+      "address": "Rua Y",
+      "number": 321,
+      "state": "PI",
+      "city": "Pedro II",
+      "id": "9dd008f2-f853-41b0-a115-1f8f819b2067",
+    "vehicles": [
+      {
+        "model": "Fusca",
+        "brand": "Volkswagen",
+        "year": 2016,
+        "plate": "DNA-0001",
+        "id": "4105b594-ee7c-4a80-93b5-4ccf61634349",
+        "acquisition_date": "2022-01-24T17:36:05.828Z"
+      }
+    ],
+    "year": 2017
+  }
+}
+```
+
+<h4>Deleção</h4>
+
+Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj**/vehicles/:plate**</b> (ou localhost:3000/companies/:cnpj**/vehicles/:plate**)
+
+Exemplo a ser colocado no body da requisição:
+
+```
+(Requisição feita sem body)
+```
+
+E a resposta esperada:
+
+```
+Status: 200 OK
+```
+
+```
+{
+  "messagem": "Vehicle deleted",
+  "vehicles": []
+}
+```
+
 # Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
@@ -307,3 +446,4 @@ Status: 200 OK
 - [JWT](https://github.com/auth0/node-jsonwebtoken)
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Jest](https://jestjs.io/docs/getting-started)
