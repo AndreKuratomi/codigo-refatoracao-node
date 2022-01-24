@@ -230,7 +230,7 @@ Status: 200 OK
 ]
 ```
 
-<h3>AVISO: As próximas duas rotas e em todas as dos veículos necessitam serem autenticadas inserindo-se o mesmo token gerado na rota "/companies/login" no Bearer token da parte Authorization.</h6>
+<h3>AVISO: As próximas duas rotas e em todas as dos veículos necessitam ser autenticadas inserindo-se o mesmo token gerado na rota "/companies/login" no Bearer token da parte Authorization.</h6>
 
 <h4>Atualização de dados:</h4>
 
