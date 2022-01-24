@@ -10,9 +10,9 @@
 
 # Descrição
 
-<p>A aplicação<b>Refatoração código fonte</b> consiste, como o próprio nome diz, numa refatoração da aplicação do desenvolvedor Alan Cesar Pires (original <b>[aqui](https://gitlab.com/kenzie-academy-brasil/se/back-end-web-development/q4/codigo-refatoracao-node-sprint-4b)</b>) na qual também foi acrescentado o gerenciamento de rotas e a aplicação de testes em Jest.</p>
+<p>A aplicação <b>Refatoração código fonte</b> consiste, como o próprio nome diz, numa refatoração da aplicação do desenvolvedor Alan Cesar Pires (original <b>[aqui](https://gitlab.com/kenzie-academy-brasil/se/back-end-web-development/q4/codigo-refatoracao-node-sprint-4b)</b>) na qual também foi acrescentado o gerenciamento de rotas e a aplicação de testes em Jest.</p>
 
-<p>A aplicação em si é um serviço simples de gerenciamento de empresas e seus veículos. Esta aplicação utiliza o ambiente de execução Node.js e o framework Express.js.</p>
+<p>A aplicação em si é um serviço simples de gerenciamento de empresas e seus respectivos veículos. Esta aplicação utiliza o ambiente de execução Node.js e o framework Express.js.</p>
 <br>
 
 # Instalação
@@ -33,13 +33,13 @@ git init
 <h5>1. Fazer o clone do reposítório <span style="text-decoration: underline">Users service</span> na sua máquina pelo terminal do computador ou pelo do IDE:</h5>
 
 ```
-git clone git@gitlab.com:ABKURA/users-serveice.git
+git clone git@gitlab.com:ABKURA/codigo-refatoracao-node-sprint-4b.git
 ```
 
 <p>Entrar na pasta criada:</p>
 
 ```
-cd users-serveice
+cd codigo-refatoracao-node-sprint-4b
 ```
 
 <p>Instalar as dependências:</p>
@@ -162,7 +162,7 @@ Status: 400 BAD REQUEST
 
 <h4>Login</h4>
 
-Login do usuário recém cadastrado (Método POST): <b>companies/login</b> (ou localhost:3000/companies/login)
+Login do usuário recém cadastrado (Método POST): <b>/companies/login</b> (ou localhost:3000/companies/login)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -230,13 +230,13 @@ Status: 200 OK
 ]
 ```
 
-<h6>AVISO: As próximas duas rotas e todas as dos veículos necessitam serem autenticadas inserindo-se o mesmo token gerado na rota "/companies/login" no Bearer token da parte Authorization.</h6>
+<h3>AVISO: As próximas duas rotas e em todas as dos veículos necessitam serem autenticadas inserindo-se o mesmo token gerado na rota "/companies/login" no Bearer token da parte Authorization.</h6>
 
 <h4>Atualização de dados:</h4>
 
-Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj**</b> (ou localhost:3000/companies/:cnpj**)
+Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj*</b> (ou localhost:3000/companies/:cnpj*)
 
-\*\*preencher com o cnpj da empresa anteriormente cadastrada.
+\*preencher com o cnpj da empresa anteriormente cadastrada.
 
 Exemplo a ser colocado no body da requisição:
 
@@ -274,7 +274,7 @@ Status: 200 OK
 
 <h4>Deleção</h4>
 
-Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj**</b> (ou localhost:3000/companies/:cnpj**)
+Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj*</b> (ou localhost:3000/companies/:cnpj*)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -299,7 +299,7 @@ Status: 200 OK
 
 <h4>Cadastro</h4>
 
-Cadastro de veículos no CNPJ da empresa (Método POST): <b>/companies/:cnpj**/vehicles</b> (ou localhost:3000/companies/:cnpj**/vehicles)
+Cadastro de veículos no CNPJ da empresa (Método POST): <b>/companies/:cnpj*/vehicles</b> (ou localhost:3000/companies/:cnpj*/vehicles)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -334,7 +334,7 @@ Status: 201 CREATED
 
 <h4>Listagem</h4>
 
-Listagem de veículos no CNPJ da empresa (Método GET): <b>/companies/:cnpj**/vehicles</b> (ou localhost:3000/companies/:cnpj**/vehicles)
+Listagem de veículos no CNPJ da empresa (Método GET): <b>/companies/:cnpj*/vehicles</b> (ou localhost:3000/companies/:cnpj*/vehicles)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -363,7 +363,7 @@ Status: 200 OK
 
 <h4>Atualização de dados:</h4>
 
-Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj**/vehicles/:plate**</b> (ou localhost:3000/companies/:cnpj**/vehicles/:plate**)
+Atualização de dados da empresa cadastrada (Método PUT): <b>/companies/:cnpj*/vehicles/:plate\*\*</b> (ou localhost:3000/companies/:cnpj*/vehicles/:plate\*\*)
 
 \*\*preencher com a placa do veículo anteriormente cadastrado.
 
@@ -411,7 +411,7 @@ Status: 200 OK
 
 <h4>Deleção</h4>
 
-Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj**/vehicles/:plate**</b> (ou localhost:3000/companies/:cnpj**/vehicles/:plate**)
+Deleção de empresa cadastrada (Método DELETE): <b>/companies/:cnpj*/vehicles/:plate\*\*</b> (ou localhost:3000/companies/:cnpj*/vehicles/:plate\*\*)
 
 Exemplo a ser colocado no body da requisição:
 
