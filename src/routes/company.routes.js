@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { companySchema } from "../models/schemas.model";
+import { companySchema } from "../models/companySchema.model";
 import {
   verifyCompanyExistence,
   verifyDuplicateCnpj,
@@ -18,6 +18,8 @@ import {
 const route = Router();
 
 export const companyRoutes = (app) => {
+  route.use("/:cnpj(\\d+)", authenticateCompany, verifyCompanyExistence);
+
   route.post(
     "/register",
     validate(companySchema),
@@ -26,18 +28,8 @@ export const companyRoutes = (app) => {
   );
   route.post("/login", loginCompany);
   route.get("", listCompanies);
-  route.put(
-    "/:cnpj",
-    authenticateCompany,
-    verifyCompanyExistence,
-    updateCompany
-  );
-  route.delete(
-    "/:cnpj",
-    authenticateCompany,
-    verifyCompanyExistence,
-    deleteCompany
-  );
+  route.put("/:cnpj", updateCompany);
+  route.delete("/:cnpj", deleteCompany);
 
   app.use("/companies", route);
 };
