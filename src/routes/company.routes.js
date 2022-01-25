@@ -28,8 +28,8 @@ export const companyRoutes = (app) => {
   );
   route.post("/login", loginCompany);
   route.get("", listCompanies);
-  route.put("/:cnpj", updateCompany);
-  route.delete("/:cnpj", deleteCompany);
+  route.put("/:cnpj(\\d+)", updateCompany);
+  route.delete("/:cnpj(\\d+)", deleteCompany);
 
   app.use("/companies", route);
 };
