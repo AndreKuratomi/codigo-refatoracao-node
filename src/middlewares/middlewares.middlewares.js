@@ -3,7 +3,6 @@ import { companies } from "../config/database";
 import { config } from "../config/jwt";
 
 export const authenticateCompany = (req, res, next) => {
-  console.log("churros");
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Missing authorization" });
   }
@@ -58,8 +57,6 @@ export const verifyDuplicateVehiclePlate = (req, res, next) => {
 };
 
 export const verifyCompanyExistence = (req, res, next) => {
-  console.log("churros");
-
   let { cnpj } = req.params;
 
   let company = companies.find((elem) => elem.cnpj == cnpj);
@@ -74,9 +71,6 @@ export const verifyCompanyExistence = (req, res, next) => {
 };
 
 export const verifyVehicleExistence = (req, res, next) => {
-  console.log(req.params);
-  console.log("bolota");
-
   let { plate } = req.params;
 
   let vehicle = companies.some((company) =>
