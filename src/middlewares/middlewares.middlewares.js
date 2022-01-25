@@ -71,11 +71,11 @@ export const verifyCompanyExistence = (req, res, next) => {
 };
 
 export const verifyVehicleExistence = (req, res, next) => {
-  let { plate } = req.params;
+  let { plate, cnpj } = req.params;
 
-  let vehicle = companies.some((company) =>
-    company.vehicles.some((vehicle) => vehicle.plate === plate)
-  );
+  let company = companies.find((company) => company.cnpj == cnpj);
+
+  let vehicle = company.vehicles.find((vehicle) => vehicle.plate == plate);
 
   if (!vehicle) {
     return res.status(400).json({ message: "Vehicle not registered" });
