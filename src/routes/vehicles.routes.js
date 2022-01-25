@@ -1,6 +1,6 @@
 import Router from "express";
 
-import { vehicleSchema } from "../models/schemas.model";
+import { vehicleSchema } from "../models/vehicleSchema.model";
 import {
   verifyCompanyExistence,
   verifyVehicleExistence,
@@ -17,35 +17,25 @@ import {
 
 const route = Router();
 
-export const vehiculeRoutes = (app) => {
-  route.post(
-    "/:cnpj/vehicles",
+export const vehicleRoutes = (app) => {
+  route.use(
+    "/:cnpj(\\+d)/vehicles/:plate(\\+d)",
     authenticateCompany,
     verifyCompanyExistence,
+    verifyVehicleExistence
+  );
+
+  route.post(
+    "/:cnpj/vehicles",
     verifyDuplicateVehiclePlate,
     validate(vehicleSchema),
     registerCompanyVehicule
   );
-  route.get(
-    "/:cnpj/vehicles",
-    authenticateCompany,
-    verifyCompanyExistence,
-    listCompanyVehicules
-  );
-  route.put(
-    "/:cnpj/vehicles/:plate",
-    authenticateCompany,
-    verifyCompanyExistence,
-    verifyVehicleExistence,
-    updateCompanyVehicule
-  );
-  route.delete(
-    "/:cnpj/vehicles/:plate",
-    authenticateCompany,
-    verifyCompanyExistence,
-    verifyVehicleExistence,
-    deleteCompanyVehicule
-  );
+  route.get("/:cnpj/vehicles", listCompanyVehicules);
+  route.put("/:cnpj/vehicles/:plate", updateCompanyVehicule);
+  route.delete("/:cnpj/vehicles/:plate", deleteCompanyVehicule);
+
+  route.use("/:cnpj/vehicles", authenticateCompany, verifyCompanyExistence);
 
   app.use("/companies", route);
 };
