@@ -8,18 +8,30 @@
     "test": "jest"
   },
   "dependencies": {
+    "@sucrase/jest-plugin": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^14.2.0",
     "express": "^4.17.1",
+    "jest": "^27.4.7",
     "jsonwebtoken": "^8.5.1",
     "sucrase": "^3.20.3",
+    "supertest": "^6.2.2",
     "uuid": "^8.3.2",
-    "yup": "^0.32.11",
-    "@sucrase/jest-plugin": "^2.2.0",
-    "jest": "^27.4.7",
-    "supertest": "^6.2.2"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
+    "eslint": "^8.7.0",
     "nodemon": "^2.0.15"
-  }
+  },
+  "description": "- [Descrição](#descrição) - [Instalação](#instalação) - [Utilização](#utilização) - [Termos de uso](#termos-de-uso) - [Referências](#referências)",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/ABKURA/codigo-refatoracao-node-sprint-4b.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://gitlab.com/ABKURA/codigo-refatoracao-node-sprint-4b/issues"
+  },
+  "homepage": "https://gitlab.com/ABKURA/codigo-refatoracao-node-sprint-4b#readme"
 }
