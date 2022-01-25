@@ -19,23 +19,21 @@ const route = Router();
 
 export const vehicleRoutes = (app) => {
   route.use(
-    "/:cnpj(\\+d)/vehicles/:plate(\\+d)",
+    "/:cnpj(\\d+)/vehicles",
     authenticateCompany,
-    verifyCompanyExistence,
-    verifyVehicleExistence
+    verifyCompanyExistence
   );
+  route.use("/:cnpj(\\d+)/vehicles/:plate", verifyVehicleExistence);
 
   route.post(
-    "/:cnpj/vehicles",
+    "/:cnpj(\\d+)/vehicles",
     verifyDuplicateVehiclePlate,
     validate(vehicleSchema),
     registerCompanyVehicule
   );
-  route.get("/:cnpj/vehicles", listCompanyVehicules);
-  route.put("/:cnpj/vehicles/:plate", updateCompanyVehicule);
-  route.delete("/:cnpj/vehicles/:plate", deleteCompanyVehicule);
-
-  route.use("/:cnpj/vehicles", authenticateCompany, verifyCompanyExistence);
+  route.get("/:cnpj(\\d+)/vehicles", listCompanyVehicules);
+  route.put("/:cnpj(\\d+)/vehicles/:plate", updateCompanyVehicule);
+  route.delete("/:cnpj(\\d+)/vehicles/:plate", deleteCompanyVehicule);
 
   app.use("/companies", route);
 };
