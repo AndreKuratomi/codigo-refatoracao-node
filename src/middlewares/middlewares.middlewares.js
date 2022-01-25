@@ -1,5 +1,35 @@
 import jwt from "jsonwebtoken";
-import { companies, config } from "../config/config";
+import { companies } from "../config/database";
+import { config } from "../config/jwt";
+
+export const authenticateCompany = (req, res, next) => {
+  console.log("churros");
+  if (!req.headers.authorization) {
+    return res.status(401).json({ message: "Missing authorization" });
+  }
+
+  let token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      console.log(err);
+      return res.status(401).json({ message: "Invalid Token." });
+    } else {
+      return next();
+    }
+  });
+};
+
+export const validate = (schema) => async (req, res, next) => {
+  const resource = req.body;
+  try {
+    await schema.validate(resource);
+    next();
+  } catch (e) {
+    console.error(e);
+    res.status(400).json({ error: e.errors.join(", ") });
+  }
+};
 
 export const verifyDuplicateCnpj = (req, res, next) => {
   let { cnpj } = req.body;
@@ -28,9 +58,11 @@ export const verifyDuplicateVehiclePlate = (req, res, next) => {
 };
 
 export const verifyCompanyExistence = (req, res, next) => {
+  console.log("churros");
+
   let { cnpj } = req.params;
 
-  let company = companies.find((company) => company.cnpj == cnpj);
+  let company = companies.find((elem) => elem.cnpj == cnpj);
 
   if (!company) {
     return res.status(400).json({ message: "Company not registered" });
@@ -42,6 +74,9 @@ export const verifyCompanyExistence = (req, res, next) => {
 };
 
 export const verifyVehicleExistence = (req, res, next) => {
+  console.log(req.params);
+  console.log("bolota");
+
   let { plate } = req.params;
 
   let vehicle = companies.some((company) =>
@@ -55,32 +90,4 @@ export const verifyVehicleExistence = (req, res, next) => {
   req.vehicle = vehicle;
 
   return next();
-};
-
-export const authenticateCompany = (req, res, next) => {
-  if (!req.headers.authorization) {
-    return res.status(401).json({ message: "Missing authorization" });
-  }
-
-  let token = req.headers.authorization.split(" ")[1];
-
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      console.log(err);
-      return res.status(401).json({ message: "Invalid Token." });
-    } else {
-      return next();
-    }
-  });
-};
-
-export const validate = (schema) => async (req, res, next) => {
-  const resource = req.body;
-  try {
-    await schema.validate(resource);
-    next();
-  } catch (e) {
-    console.error(e);
-    res.status(400).json({ error: e.errors.join(", ") });
-  }
 };

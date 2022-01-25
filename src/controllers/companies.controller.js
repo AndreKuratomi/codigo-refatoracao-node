@@ -1,14 +1,10 @@
 import app from "../app";
-import { companies, config } from "../config/config";
+import { companies } from "../config/database";
+import { config } from "../config/jwt";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import {
-  checkingForLogin,
-  extractingForDelete,
-  extractingForUpdate,
-  hashing,
-} from "../services/companies.service";
+import { hashing } from "../services/companies.service";
 
 export const registerCompany = async (req, res) => {
   const company = await hashing(req);
@@ -19,7 +15,6 @@ export const registerCompany = async (req, res) => {
 };
 
 export const loginCompany = async (req, res) => {
-  // services não funcina aqui
   const { cnpj, password } = req.body;
 
   let company = companies.find((company) => company.cnpj === cnpj);
@@ -46,10 +41,8 @@ export const listCompanies = (req, res) => {
 };
 
 export const updateCompany = (req, res) => {
-  // services não funcina aqui
   let { company } = req;
   let updatedCompany = { ...company, ...req.body };
-
   let index = companies.indexOf(company);
 
   companies[index] = updatedCompany;
